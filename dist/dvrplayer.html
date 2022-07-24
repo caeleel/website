@@ -1,0 +1,70 @@
+<html>
+
+<head>
+	<title>Issue with Twitch DVR Player</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@1,600&family=Inconsolata&display=swap"
+		rel="stylesheet">
+	</link>
+
+	<style>
+		body {
+			font-family: 'Ibarra Real Nova', serif;
+			background-color: #222222;
+			color: white;
+		}
+
+		.container {
+			width: 600px;
+			margin: auto;
+		}
+
+		h1 {
+			font-style: italic;
+			margin: 100px 0 60px;
+		}
+
+		img {
+			width: 600px;
+		}
+
+		p {
+			font-family: 'Inconsolata', 'monospace';
+			margin: 35px 0;
+			line-height: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Issues with Twitch DVR Player</h1>
+		<p>
+			You may have noticed that rewinding doesn't work currently on many streams using Twitch DVR Player. This can be
+			for a number of reasons (say the user having VODs disabled, or the VODs being sub-only and the user doesn't have a
+			sub), but the most common reason currently is a new "feature" Twitch has turned on which by default makes it so
+			that new VODs aren't automatically published during a stream. This is most likely so that if there is copyrighted
+			music during the stream, it can be muted before the VOD is made available so that Twitch doesn't get sued.
+		</p>
+		<p>
+			Unfortunately, this also makes Twitch DVR Player not work. In order to get Twitch DVR Player working, streamers
+			must enable this setting on their channel before starting their stream:
+		</p>
+		<div>
+			<img src="https://assets.help.twitch.tv/article/img/000001970-09.png" alt="Always publish vods setting" />
+		</div>
+		<p>
+			Sometimes, streamers are unaware that this setting is disabled because it can be disabled by default. Feel free to
+			bring it up to streamers in case they don't know (after making sure that they even have VODs on in the first
+			place),
+			but of course please respect their decision if they choose to leave it off.
+		</p>
+		<p>
+			This is an understandable but sad move from Twitch which does make the DVR player a lot less functional. Hopefully
+			at some point soon Twitch will introduce its own DVR functionality so that this extension isn't necessary.
+		</p>
+	</div>
+</body>
+
+</html>
