@@ -38,24 +38,52 @@
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 1;
             ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+            
+            // Create clipping path for the rectangle
+            ctx.beginPath();
+            ctx.rect(rectX, rectY, rectWidth, rectHeight);
+            ctx.clip();
         }
         
-        // Draw a random dot inside the rectangle
-        function drawRandomDot() {
-            const x = rectX + Math.random() * rectWidth;
-            const y = rectY + Math.random() * rectHeight;
+        // Draw a random asterisk inside the rectangle
+        function drawRandomAsterisk() {
+            const centerX = rectX + Math.random() * rectWidth;
+            const centerY = rectY + Math.random() * rectHeight;
             
-            ctx.fillStyle = 'black';
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.lineWidth = 1;
+            
+            // Draw 4 lines intersecting at the center point
+            // Horizontal line
             ctx.beginPath();
-            ctx.arc(x, y, 2, 0, 2 * Math.PI);
-            ctx.fill();
+            ctx.moveTo(rectX, centerY);
+            ctx.lineTo(rectX + rectWidth, centerY);
+            ctx.stroke();
+            
+            // Vertical line
+            ctx.beginPath();
+            ctx.moveTo(centerX, rectY);
+            ctx.lineTo(centerX, rectY + rectHeight);
+            ctx.stroke();
+            
+            // Diagonal line (top-left to bottom-right)
+            ctx.beginPath();
+            ctx.moveTo(centerX - rectWidth, centerY - rectWidth);
+            ctx.lineTo(centerX + rectWidth, centerY + rectWidth);
+            ctx.stroke();
+            
+            // Diagonal line (top-right to bottom-left)
+            ctx.beginPath();
+            ctx.moveTo(centerX + rectWidth, centerY - rectWidth);
+            ctx.lineTo(centerX - rectWidth, centerY + rectWidth);
+            ctx.stroke();
         }
         
         // Initialize: draw the rectangle
         drawRectangle();
         
-        // Start the animation: draw a random dot every 100ms
-        setInterval(drawRandomDot, 100);
+        // Start the animation: draw a random asterisk every 100ms
+        setInterval(drawRandomAsterisk, 100);
     </script>
 </body>
 </html> 
