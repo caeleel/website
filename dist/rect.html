@@ -7,7 +7,7 @@
     <style>
         body {
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body style="margin: 0; padding: 0;">
+<body>
     <canvas id="canvas" width="600" height="400"></canvas>
 
     <script>
@@ -33,7 +33,57 @@
         const rectX = (canvas.width - rectWidth) / 2;
         const rectY = (canvas.height - rectHeight) / 2;
         
-        // Draw the rectangle outline
+        // 8 cardinal directions (dx, dy)
+        const directions = [
+            [0, -1],   // North
+            [1, -1],   // Northeast
+            [1, 0],    // East
+            [1, 1],    // Southeast
+            [0, 1],    // South
+            [-1, 1],   // Southwest
+            [-1, 0],   // West
+            [-1, -1]   // Northwest
+        ];
+        
+        // Point class to track position and direction
+        class Point {
+            constructor() {
+                this.reinitialize();
+            }
+            
+            reinitialize() {
+                this.x = rectX + Math.random() * rectWidth;
+                this.y = rectY + Math.random() * rectHeight;
+                this.direction = Math.floor(Math.random() * 8);
+            }
+            
+            update() {
+                const [dx, dy] = directions[this.direction];
+                this.x += dx * 2;
+                this.y += dy * 2;
+                
+                // Check if point hits rectangle edge
+                if (this.x <= rectX || this.x >= rectX + rectWidth || 
+                    this.y <= rectY || this.y >= rectY + rectHeight) {
+                    this.reinitialize();
+                }
+            }
+            
+            draw() {
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+        
+        // Initialize 100 points
+        const points = [];
+        for (let i = 0; i < 100; i++) {
+            points.push(new Point());
+        }
+        
+        // Draw the rectangle outline and set clipping path
         function drawRectangle() {
             ctx.strokeStyle = 'black';
             ctx.lineWidth = 1;
@@ -45,45 +95,26 @@
             ctx.clip();
         }
         
-        // Draw a random asterisk inside the rectangle
-        function drawRandomAsterisk() {
-            const centerX = rectX + Math.random() * rectWidth;
-            const centerY = rectY + Math.random() * rectHeight;
+        // Animation loop
+        function animate() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
-            ctx.lineWidth = 1;
+            // Draw rectangle and set clipping path
+            drawRectangle();
             
-            // Draw 4 lines intersecting at the center point
-            // Horizontal line
-            ctx.beginPath();
-            ctx.moveTo(rectX, centerY);
-            ctx.lineTo(rectX + rectWidth, centerY);
-            ctx.stroke();
+            // Update and draw all points
+            points.forEach(point => {
+                point.update();
+                point.draw();
+            });
             
-            // Vertical line
-            ctx.beginPath();
-            ctx.moveTo(centerX, rectY);
-            ctx.lineTo(centerX, rectY + rectHeight);
-            ctx.stroke();
-            
-            // Diagonal line (top-left to bottom-right)
-            ctx.beginPath();
-            ctx.moveTo(centerX - rectWidth, centerY - rectWidth);
-            ctx.lineTo(centerX + rectWidth, centerY + rectWidth);
-            ctx.stroke();
-            
-            // Diagonal line (top-right to bottom-left)
-            ctx.beginPath();
-            ctx.moveTo(centerX + rectWidth, centerY - rectWidth);
-            ctx.lineTo(centerX - rectWidth, centerY + rectWidth);
-            ctx.stroke();
+            // Request next frame
+            requestAnimationFrame(animate);
         }
         
-        // Initialize: draw the rectangle
-        drawRectangle();
-        
-        // Start the animation: draw a random asterisk every 100ms
-        setInterval(drawRandomAsterisk, 100);
+        // Start the animation
+        animate();
     </script>
 </body>
 </html> 
