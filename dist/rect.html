@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rectangle with Random Dots</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Rectangle dimensions and position
+        const rectWidth = 300;
+        const rectHeight = 200;
+        const rectX = (canvas.width - rectWidth) / 2;
+        const rectY = (canvas.height - rectHeight) / 2;
+        
+        // Draw the rectangle outline
+        function drawRectangle() {
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+        }
+        
+        // Draw a random dot inside the rectangle
+        function drawRandomDot() {
+            const x = rectX + Math.random() * rectWidth;
+            const y = rectY + Math.random() * rectHeight;
+            
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(x, y, 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+        
+        // Initialize: draw the rectangle
+        drawRectangle();
+        
+        // Start the animation: draw a random dot every 100ms
+        setInterval(drawRandomDot, 100);
+    </script>
+</body>
+</html> 
