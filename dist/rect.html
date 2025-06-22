@@ -55,33 +55,36 @@
                 this.x = rectX + Math.random() * rectWidth;
                 this.y = rectY + Math.random() * rectHeight;
                 this.direction = Math.floor(Math.random() * 8);
+                this.distanceTraveled = 0;
             }
             
             update() {
                 const [dx, dy] = directions[this.direction];
                 this.x += dx * 2;
                 this.y += dy * 2;
+                this.distanceTraveled += 2;
                 
-                // Check if point hits rectangle edge
-                if (this.x <= rectX || this.x >= rectX + rectWidth || 
-                    this.y <= rectY || this.y >= rectY + rectHeight) {
+                // Check if point has traveled rectHeight / 2 distance
+                if (this.distanceTraveled >= rectHeight / 2) {
                     this.reinitialize();
                 }
             }
             
             draw() {
-                ctx.fillStyle = 'black';
+                // Calculate opacity based on distance traveled
+                const maxDistance = rectHeight / 2;
+                const opacity = 1 - (this.distanceTraveled / maxDistance);
+                
+                ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, 2, 0, 2 * Math.PI);
                 ctx.fill();
             }
         }
         
-        // Initialize 100 points
+        // Initialize with 1 point
         const points = [];
-        for (let i = 0; i < 100; i++) {
-            points.push(new Point());
-        }
+        points.push(new Point());
         
         // Draw the rectangle outline and set clipping path
         function drawRectangle() {
@@ -112,6 +115,15 @@
             // Request next frame
             requestAnimationFrame(animate);
         }
+        
+        // Add a new point every 100ms until we reach 100 points
+        const addPointInterval = setInterval(() => {
+            if (points.length < 100) {
+                points.push(new Point());
+            } else {
+                clearInterval(addPointInterval);
+            }
+        }, 100);
         
         // Start the animation
         animate();
