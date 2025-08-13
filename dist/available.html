@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available works</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Work Sans', sans-serif;
+            max-width: 320px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .artwork {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .artwork:last-child {
+            border-bottom: none;
+        }
+
+        .artwork img {
+            width: auto;
+            height: 240px;
+        }
+
+        .title {
+            font-style: italic;
+            font-size: 14px;
+            margin: 10px 0;
+            color: black;
+        }
+
+        .year,
+        .size,
+        .medium,
+        .price {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .section {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        h1 {
+            font-size: 14px;
+            font-weight: 400;
+            color: white;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            background-color: black;
+            padding: 4px 8px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Current works</h1>
+
+    <div id="artworks-container"></div>
+
+    <div class="section">
+        <h1>Statement</h1>
+        <p>I've always loved looking at the shadows of trees on walls while sitting in my home. There's something
+            that's calming about the way the dappled light filters through the trees. It's this feeling that I've
+            tried to recreate in this body of work, inspired by the translucent quality of porcelain. Shadows come
+            through porcelain in such a unique, diffuse way, much like sunlight gets scattered by the edge of a
+            leaf. Here I show shadows from different parts of the day, frozen in time, from a morning routine til
+            night. At night, we go from the outside projected inward, to the reverse of the inside being projected
+            out.
+        </p>
+    </div>
+
+    <div class="section">
+        <h1>How to Collect</h1>
+        <p>For information about acquiring any of these works, or any other questions or inquiries, please email <a
+                href="mailto:findingthenumber@gmail.com">findingthenumber@gmail.com</a>. Venmo or credit card is
+            accepted for purchases.</p>
+    </div>
+
+    <script>
+        const works = [
+            {
+                title: "Morning Tea",
+                year: "2025",
+                size: "7 x 9 in",
+                medium: "porcelain, LEDs, paper in cherry wood frame",
+                price: "$240",
+                image: "images/earthbody/morning_tea.jpg"
+            },
+            {
+                title: "Walking the Dog",
+                year: "2025",
+                size: "7 x 7 x 7 in",
+                medium: "porcelain, LEDs, paper in cherry wood frame",
+                price: "not for sale at the moment",
+                image: "images/earthbody/walking_the_dog.jpg"
+            },
+            {
+                title: "Before Supper",
+                year: "2025",
+                size: "9 x 8 in",
+                medium: "porcelain, LEDs, paper in oak wood frame",
+                price: "$320",
+                image: "images/earthbody/before_supper.jpg"
+            },
+            {
+                title: "Brushing Teeth",
+                year: "2025",
+                size: "8 x 6 in",
+                medium: "porcelain, LEDs, paper in oak wood frame",
+                price: "$180",
+                image: "images/earthbody/brushing_teeth.jpg"
+            }
+        ];
+
+        function displayArtworks() {
+            const container = document.getElementById('artworks-container');
+
+            works.forEach(work => {
+                const artworkDiv = document.createElement('div');
+                artworkDiv.className = 'artwork';
+
+                artworkDiv.innerHTML = `
+                    <img src="${work.image}" alt="${work.title}">
+                    <div class="title">${work.title}</div>
+                    <div class="year">${work.year}</div>
+                    <div class="size">${work.size}</div>
+                    <div class="medium">${work.medium}</div>
+                    <div class="price">${work.price}</div>
+                `;
+
+                container.appendChild(artworkDiv);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', displayArtworks);
+    </script>
+</body>
+
+</html>
